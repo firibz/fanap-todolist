@@ -30,37 +30,37 @@ html body {
 }
 
 .custom-rounded-borders {
-  border-radius: 8px;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
+  border-radius: 16px;
+  -moz-border-radius: 16px;
+  -webkit-border-radius: 16px;
 }
 
 .custom-rounded-borders--right {
-  border-radius: 0 8px 8px 0;
-  -moz-border-radius: 0 8px 8px 0;
-  -webkit-border-radius: 0 8px 8px 0;
+  border-radius: 0 16px 16px 0;
+  -moz-border-radius: 0 16px 16px 0;
+  -webkit-border-radius: 0 16px 16px 0;
 }
 
 .custom-rounded-borders--left {
-  border-radius: 8px 0 0 8px;
-  -moz-border-radius: 8px 0 0 8px;
-  -webkit-border-radius: 8px 0 0 8px;
+  border-radius: 16px 0 0 16px;
+  -moz-border-radius: 16px 0 0 16px;
+  -webkit-border-radius: 16px 0 0 16px;
 }
 
 .custom-rounded-borders--top {
-  border-radius: 8px 8px 0 0;
-  -moz-border-radius: 8px 8px 0 0;
-  -webkit-border-radius: 8px 8px 0 0;
+  border-radius: 16px 16px 0 0;
+  -moz-border-radius: 16px 16px 0 0;
+  -webkit-border-radius: 16px 16px 0 0;
 }
 
 .custom-rounded-borders--bottom {
-  border-radius: 0 0 8px 8px;
-  -moz-border-radius: 0 0 8px 8px;
-  -webkit-border-radius: 0 0 8px 8px;
+  border-radius: 0 0 16px 16px;
+  -moz-border-radius: 0 0 16px 16px;
+  -webkit-border-radius: 0 0 16px 16px;
 }
 
 .system-btn {
-  border-radius: 8px;
+  border-radius: 16px;
   font-size: 12px;
   transition: 0.5s;
 }

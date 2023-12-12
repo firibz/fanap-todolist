@@ -1,6 +1,6 @@
 <template>
   <q-layout class="system-layout" view="lHh Lpr lFf">
-    <q-header class="system-header">
+    <q-header class="system-header q-pt-sm">
       <q-toolbar>
         <q-btn
           aria-label="Menu"
@@ -10,11 +10,9 @@
           round
           @click="toggleLeftDrawer"
         />
-
-        <q-toolbar-title>
-          Quasar App
+        <q-toolbar-title class="text-center">
+          Fanap Todo list task
         </q-toolbar-title>
-
         <q-toggle
           :class="$q.screen.lt.md ? 'q-ml-xs': 'q-my-sm'"
           :color="utilState.darkTheme ? 'indigo-11': 'amber'"
@@ -38,7 +36,7 @@
         <q-item-label
           header
         >
-          Essential Links
+          <!--          Essential Links-->
         </q-item-label>
 
         <EssentialLink
@@ -50,7 +48,7 @@
     </q-drawer>
 
     <q-page-container>
-      <q-page class="flex flex-center">
+      <q-page class="flex flex-center q-pa-md">
         <background-pattern/>
         <router-view/>
       </q-page>
