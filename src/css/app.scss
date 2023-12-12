@@ -1,0 +1,85 @@
+// app global css in SCSS form
+@import 'dark.theme';
+@import 'light.theme';
+@import "media.query";
+
+:root {
+  //--q-system-dark: #1d1b2f;
+  //--q-system-semi-dark: #222041;#a4ff91
+  //--q-color-system-primary-dark: #99ffb1;
+  --q-color-system-primary-in-dark: #a4ff91;
+  --q-color-system-primary-in-light: #4c7753;
+  --q-color-text-in-dark: #fff;
+  --q-color-text-in-light: #323232;
+  --q-color-section-in-dark: #1D1D1D;
+  --q-color-section-in-light: #fff;
+  --q-color-page-in-dark: #121212;
+  --q-color-page-in-light: #85898a;
+  --q-color-page-in-light-secondary: #e5e6e8;
+
+  --q-color-lemon-green: #52d379;
+  --q-color-lemon-yellow: #edff20;
+}
+
+html,
+html body {
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+.custom-rounded-borders {
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+}
+
+.custom-rounded-borders--right {
+  border-radius: 0 8px 8px 0;
+  -moz-border-radius: 0 8px 8px 0;
+  -webkit-border-radius: 0 8px 8px 0;
+}
+
+.custom-rounded-borders--left {
+  border-radius: 8px 0 0 8px;
+  -moz-border-radius: 8px 0 0 8px;
+  -webkit-border-radius: 8px 0 0 8px;
+}
+
+.custom-rounded-borders--top {
+  border-radius: 8px 8px 0 0;
+  -moz-border-radius: 8px 8px 0 0;
+  -webkit-border-radius: 8px 8px 0 0;
+}
+
+.custom-rounded-borders--bottom {
+  border-radius: 0 0 8px 8px;
+  -moz-border-radius: 0 0 8px 8px;
+  -webkit-border-radius: 0 0 8px 8px;
+}
+
+.system-btn {
+  border-radius: 8px;
+  font-size: 12px;
+  transition: 0.5s;
+}
+
+.q-btn.no-hover .q-focus-helper {
+  display: none;
+}
+
+.system-primary-link, .system-primary-hover {
+  transition: 0.5s;
+}
+
+.system-primary-link, .system-primary-link:hover, .system-primary-link:focus, .system-primary-link:active, .system-primary-link:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+.bg-blur {
+  background: rgba(0, 0, 0, .3);
+  -webkit-backdrop-filter: saturate(150%) blur(7px);
+  backdrop-filter: saturate(150%) blur(7px);
+}

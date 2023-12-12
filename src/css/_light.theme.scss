@@ -1,0 +1,79 @@
+.body--light {
+  .card {
+    color: var(--q-color-text-in-light);
+    background: var(--q-color-section-in-light);
+    position: relative;
+  }
+
+  .text-system-primary {
+    color: var(--q-color-system-primary-in-light) !important;
+  }
+
+  .bg-system-primary {
+    background-color: var(--q-color-system-primary-in-light) !important;
+  }
+
+  .text-section {
+    color: var(--q-color-section-in-light) !important;
+  }
+
+  .bg-section {
+    background: var(--q-color-section-in-light) !important;
+  }
+
+  .text-page {
+    color: var(--q-color-page-in-light) !important;
+  }
+
+  .bg-page {
+    background: var(--q-color-page-in-light) !important;
+  }
+
+  .text-default {
+    color: var(--q-color-text-in-light) !important;
+  }
+
+  .bg-default {
+    background: var(--q-color-text-in-light) !important;
+  }
+
+  .system-btn:hover, .q-btn.system-primary-hover:hover {
+    transition: 0.5s;
+    -webkit-box-shadow: -1px 1px 1px 0px var(--q-color-system-primary-in-light);
+    -moz-box-shadow: -1px 1px 1px 0px var(--q-color-system-primary-in-light);
+    box-shadow: -1px 1px 1px 0px var(--q-color-system-primary-in-light);
+    color: var(--q-color-system-primary-in-light) !important;
+  }
+
+  hr.green-hr {
+    border: 0;
+    height: 2px;
+    background-image: linear-gradient(to right, rgba(76, 119, 83, 0), rgba(76, 119, 83, 0.75), rgba(76, 119, 83, 0));
+  }
+
+  hr.section-hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(50, 50, 50, 0), rgba(50, 50, 50, 0.75), rgba(50, 50, 50, 0));
+  }
+
+  hr.title-hr {
+    border: 0;
+    height: 2px;
+    background-image: linear-gradient(to right, rgba(76, 119, 83, 0.5), rgba(76, 119, 83, 0.75), rgba(76, 119, 83, 0));
+  }
+
+  .system-primary-link:hover, .system-primary-hover:hover {
+    color: var(--q-color-system-primary-in-light) !important;
+    transition: 0.5s;
+  }
+
+  .system-header {
+    background-image: linear-gradient(to right, #06a563, #2cb35d, #48c155, #63ce49, #80db39, #80db39, #80db39, #80db39, #63ce49, #48c155, #2cb35d, #06a563);
+  }
+
+  .system-drawer {
+    background-color: #06A563;
+    //background-image: linear-gradient(to top, #06a563, #2cb35d, #48c155, #63ce49, #80db39, #80db39, #80db39, #80db39, #63ce49, #48c155, #2cb35d, #06a563);
+  }
+}

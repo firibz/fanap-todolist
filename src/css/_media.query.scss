@@ -1,0 +1,56 @@
+//max queries
+@media only screen and (max-width: $breakpoint-lg-max) {
+}
+
+@media only screen and (max-width: $breakpoint-md-max) {
+}
+
+@media only screen and (max-width: $breakpoint-sm-max) {
+}
+
+@media only screen and (max-width: $breakpoint-xs-max) {
+}
+
+//-----------------------------------------------------------
+//min queries
+@media only screen and (min-width: $breakpoint-xl-min) {
+}
+
+@media only screen and (min-width: $breakpoint-lg-min) {
+}
+
+@media only screen and (min-width: $breakpoint-md-min) {
+}
+
+@media only screen and (min-width: $breakpoint-sm-min) {
+
+}
+
+//@supports (-webkit-overflow-scrolling: touch) {
+//  .tableWithBarSize {
+//    -webkit-overflow-scrolling: touch;
+//  }
+//
+//  .tableWithoutBarSize {
+//    -webkit-overflow-scrolling: touch;
+//  }
+//
+//  input[type="color"],
+//  input[type="date"],
+//  input[type="datetime"],
+//  input[type="datetime-local"],
+//  input[type="email"],
+//  input[type="month"],
+//  input[type="number"],
+//  input[type="password"],
+//  input[type="search"],
+//  input[type="tel"],
+//  input[type="text"],
+//  input[type="time"],
+//  input[type="url"],
+//  input[type="week"],
+//  select:focus,
+//  textarea {
+//    font-size: 16px;
+//  }
+//}
