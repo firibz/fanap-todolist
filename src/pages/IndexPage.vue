@@ -4,37 +4,42 @@
   <!--    src="~assets/quasar-logo-vertical.svg"-->
   <!--    style="width: 200px; height: 200px"-->
   <!--  >-->
-  <div>
+  <div v-if="listState.items && listState.items.length>0">
+    {{ listState.items }}
+  </div>
+  <div v-else>
     <lottie-player autoplay
+                   class="empty-list-animation"
                    loop
                    mode="normal"
-                   src="/animations/empty-list.json" style="height: 30rem; width:22rem;">
+                   src="/animations/empty-list.json">
     </lottie-player>
     <div class="bg-blur custom-rounded-borders q-pa-md text-center text-white">The list is empty</div>
   </div>
-  <q-page-sticky position="bottom-right" :offset="[18, 18]">
+  <router-view/>
+  <q-page-sticky :offset="[18, 18]" position="bottom-right">
     <q-btn
       class="q-ma-md"
-      fab
       color="teal"
-      size="lg"
+      fab
       icon="add"
-      @click="openAddItem"
+      size="lg"
+      @click="gotoAddItem"
     />
   </q-page-sticky>
   <q-page-sticky expand position="top">
     <div class="row q-py-md system-header custom-rounded-borders--bottom justify-center items-center full-width">
       <q-input
+        v-model="listState.searchedTitle"
+        bg-color="white"
         class="col-10 col-sm-7 col-md-6 col-lg-5 col-xl-4"
         input-class="text-teal"
-        rounded
         outlined
-        v-model="searchedTitle"
         placeholder="Search"
-        bg-color="white"
+        rounded
       >
         <template v-slot:append>
-          <q-btn color="teal" round dense flat icon="search"/>
+          <q-btn color="teal" dense flat icon="search" round/>
         </template>
       </q-input>
     </div>
@@ -42,21 +47,26 @@
 </template>
 
 <script>
-import {defineComponent, ref} from 'vue'
+import {defineComponent} from 'vue'
 // the import ia essential in order to use vue-lottie component
 import * as LottiePlayer from "@lottiefiles/lottie-player";
+import {useListStore} from "stores/list-store";
+import {useRouter} from 'vue-router'
 
 export default defineComponent({
   name: 'IndexPage',
-  components: {
-  },
-  setup(){
-    const searchedTitle = ref(null)
-    function openAddItem() {
+  components: {},
+  setup() {
+    const listStore = useListStore();
+    const router = useRouter();
+
+    function gotoAddItem() {
+      router.push('/add')
     }
+
     return {
-      searchedTitle,
-      openAddItem,
+      listState: listStore.$state,
+      gotoAddItem,
     }
   }
 })

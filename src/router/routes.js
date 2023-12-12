@@ -4,7 +4,17 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/IndexPage.vue') }
+      {
+        path: '', component: () => import('pages/IndexPage.vue'),
+        children: [
+          {
+            path: 'add', component: () => import('components/TaskDialog.vue'),
+          },
+          {
+            path: 'edit', component: () => import('components/TaskDialog.vue'),
+          }
+        ]
+      }
     ]
   },
 
