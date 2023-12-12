@@ -29,6 +29,19 @@ html body {
   -webkit-text-size-adjust: 100%;
 }
 
+.text-lemon-green{
+  color: var(--q-color-lemon-green) !important;
+}
+.bg-lemon-green{
+  background-color: var(--q-color-lemon-green) !important;
+}
+.text-lemon-yellow{
+  color: var(--q-color-lemon-yellow) !important;
+}
+.bg-lemon-yellow{
+  background-color: var(--q-color-lemon-yellow) !important;
+}
+
 .custom-rounded-borders {
   border-radius: 16px;
   -moz-border-radius: 16px;

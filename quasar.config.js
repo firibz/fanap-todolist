@@ -113,7 +113,7 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['AddressbarColor']
+      plugins: ['Notify', 'AddressbarColor']
     },
 
     // animations: 'all', // --- includes all animations
