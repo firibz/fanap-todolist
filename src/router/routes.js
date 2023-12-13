@@ -6,14 +6,9 @@ const routes = [
     children: [
       {
         path: '', component: () => import('pages/IndexPage.vue'),
-        children: [
-          {
-            path: 'add', component: () => import('components/TaskDialog.vue'),
-          },
-          {
-            path: 'edit', component: () => import('components/TaskDialog.vue'),
-          }
-        ]
+      },
+      {
+        path: 'item', component: () => import('pages/ItemPage.vue'),
       }
     ]
   },

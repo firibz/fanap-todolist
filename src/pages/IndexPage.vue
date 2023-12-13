@@ -13,7 +13,8 @@
           :key="'transitionsTask'+index"
           v-model:status="item.status"
           :description="item.description"
-          :left-swipe-function="deleteTask"
+          :left-swipe-function="goToItemPage"
+          :list-click-function="goToItemPage"
           :right-swipe-function="deleteTask"
           :title="item.title">
           <template #actions>
@@ -45,15 +46,7 @@
     </q-list>
   </div>
   <div v-else class="flex flex-center margin-for-searchbar">
-    <div class="column">
-      <lottie-player autoplay
-                     class="empty-list-animation"
-                     loop
-                     mode="normal"
-                     src="/animations/empty-list.json">
-      </lottie-player>
-      <div class="bg-blur custom-rounded-borders q-pa-md text-center text-white">The list is empty</div>
-    </div>
+    <empty-list/>
   </div>
 <!--  <router-view/>-->
   <task-dialog v-model="taskDialog" :mode="dialogMode"/>
@@ -97,18 +90,17 @@
 
 <script>
 import {defineComponent, watch, ref} from 'vue'
-// the import ia essential in order to use vue-lottie component
-import * as LottiePlayer from "@lottiefiles/lottie-player";
 import {useListStore} from "stores/list-store";
 import {useRouter, useRoute} from 'vue-router'
 import { useQuasar } from 'quasar'
 import _ from 'lodash';
 import TaskItem from "components/TaskItem.vue";
 import TaskDialog from "components/TaskDialog.vue";
+import EmptyList from "components/EmptyList.vue";
 
 export default defineComponent({
   name: 'IndexPage',
-  components: {TaskDialog, TaskItem},
+  components: {EmptyList, TaskDialog, TaskItem},
   setup() {
     const listStore = useListStore();
     const router = useRouter();
@@ -126,6 +118,12 @@ export default defineComponent({
         listStore.currentItem = _.cloneDeep(item);
       }
       taskDialog.value = true;
+    }
+    function goToItemPage(item) {
+      const query = {
+        id: item.id,
+      }
+      router.push({path: 'item', query})
     }
     function deleteTask(item) {
       console.log("delete")
@@ -159,6 +157,7 @@ export default defineComponent({
       taskDialog,
       dialogMode,
       openTaskDialog,
+      goToItemPage,
       deleteTask,
       updateStatusQuery,
     }

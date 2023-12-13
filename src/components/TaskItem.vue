@@ -22,6 +22,8 @@
     <q-item
       v-ripple
       :class="{ 'done': status === 'done' }"
+      @click="listClickFunction({id, title})"
+      clickable
     >
       <q-item-section avatar>
         <q-checkbox
@@ -72,6 +74,9 @@ export default {
     rightSwipeFunction: {
       type: Function,
       required: true,
+    },
+    listClickFunction: {
+      type: Function,
     },
     leftSwipeText: {
       type: String,
