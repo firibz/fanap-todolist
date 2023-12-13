@@ -61,11 +61,11 @@
                 <q-checkbox
                   v-model="form.status"
                   :color="form.status === 'done' ? 'teal-14' : (form.status === 'doing'? 'amber':'grey')"
-                  keep-color
                   :label="form.status"
                   class="rounded"
                   false-value="new"
                   indeterminate-value="doing"
+                  keep-color
                   toggle-indeterminate
                   true-value="done"
                 />
@@ -106,12 +106,13 @@ export default {
     const listStore = useListStore();
     const router = useRouter();
     const route = useRoute();
-    let form = reactive({
-      id: route.query.id,
-      title: '',
-      description: '',
-      status: 'new'
-    });
+    let form = route.query.id ? reactive(listStore.getTask(route.query.id)) :
+      reactive({
+        id: route.query.id,
+        title: '',
+        description: '',
+        status: 'new'
+      })
 
     function closeDialog() {
       router.push('/')
@@ -124,7 +125,7 @@ export default {
           closeDialog();
         })
       } else {
-        listStore.editTask(form.id).then((item) => {
+        listStore.editTask(form).then((item) => {
           emit("edited", item)
           closeDialog();
         })

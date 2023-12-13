@@ -108,13 +108,19 @@ export default defineComponent({
   setup() {
     const listStore = useListStore();
     const router = useRouter();
+    listStore.searchedStatus = router.currentRoute.value.query.status || 'all'
 
     function gotoAddItem() {
       router.push('/add')
     }
 
     function gotoEditItem(id) {
-      router.push('/edit')
+      router.push({
+        path: '/edit',
+        query: {
+          id: id
+        }
+      });
     }
 
     function deleteTask(id) {

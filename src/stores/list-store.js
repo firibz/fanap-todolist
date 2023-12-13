@@ -1,17 +1,16 @@
-import { defineStore } from 'pinia';
+import {defineStore} from 'pinia';
 import {notification} from "src/helpers/notification";
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import _ from 'lodash';
-import { watch } from 'vue'
+import {watch} from 'vue'
 
 export const useListStore = defineStore('list', {
   state: () => ({
     items: JSON.parse(localStorage.getItem("items")) || [],
     searchedText: '',
-    searchedStatus: 'all',
+    searchedStatus: 'all', //initiates in the created hook of the page
   }),
   getters: {
-    // doubleCount: (state) => state.counter * 2,
     filteredItems(state) {
       let tempItems = [];
       if (this.router.currentRoute.value.query.status) {
@@ -38,17 +37,33 @@ export const useListStore = defineStore('list', {
       } else {
         item.id = uuidv4();
         this.items.unshift(_.cloneDeep(item));
-        return(item)
+        return (item)
       }
     },
     deleteTask(id) {
     },
-    editTask(id) {
+    async editTask(newItem) {
+      if (!newItem?.title) {
+        // notification.showErrorMessage('Please enter the title.');
+        throw new Error('ID is required fo editing the item.')
+      } else if (!newItem?.title) {
+        notification.showErrorMessage('Title is required.');
+        throw new Error('Required fields does not have value.')
+      } else {
+        const index = this.items.findIndex((task) => task.id === newItem.id);
+        this.items[index].title = newItem.title
+        this.items[index].description = newItem.description
+        this.items[index].status = newItem.status
+      }
+    },
+    getTask(id) {
+      const index = this.items.findIndex((task) => task.id === id);
+      return _.cloneDeep(this.items[index]);
     },
   },
 });
 watch(
   () => useListStore().items,
   (items) => localStorage.setItem('items', JSON.stringify(items)),
-  { deep: true } // watch the items array deeply
+  {deep: true} // watch the items array deeply
 )
