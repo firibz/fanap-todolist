@@ -80,4 +80,11 @@
     @extend .bg-blur
     //background-image: linear-gradient(to top, #4c7753, #2c6456, #1d5052, #1f3b45, #1f2830, #1d2026, #18191c, #121212, #121212, #121212, #121212, #121212);
   }
+
+  .done {
+    .q-item__label {
+      text-decoration: line-through;
+      color: #bbb;
+    }
+  }
 }

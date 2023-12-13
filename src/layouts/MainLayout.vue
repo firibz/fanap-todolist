@@ -48,7 +48,7 @@
     </q-drawer>
 
     <q-page-container>
-      <q-page class="flex flex-center q-pa-md">
+      <q-page class="q-pa-md">
         <background-pattern/>
         <router-view/>
       </q-page>

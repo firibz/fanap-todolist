@@ -1,11 +1,11 @@
 <template>
   <q-dialog
     :model-value="modelValue"
-    class="bg-blur task-dialog"
+    class="bg-blur task-dialog custom-rounded-borders--top"
     persistent
     position="bottom"
   >
-    <q-card class="task-dialog__card q-pa-sm">
+    <q-card class="task-dialog__card q-pa-sm custom-rounded-borders--top">
       <q-form @submit="submitForm">
         <q-toolbar>
           <q-avatar>
@@ -28,6 +28,7 @@
                 <q-input
                   v-model="form.title"
                   :rules="[$va.required]"
+                  autofocus
                   class="full-width"
                   color="system-primary"
                   filled
@@ -49,6 +50,23 @@
                   filled
                   label="Description"
                   label-color="system-primary"
+                />
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-section side>
+                Status:
+              </q-item-section>
+              <q-item-section>
+                <q-checkbox
+                  v-model="form.status"
+                  :color="form.status === 'done' ? 'teal-14' : (form.status === 'doing'? 'amber':'grey')"
+                  :label="form.status"
+                  class="rounded"
+                  false-value="new"
+                  indeterminate-value="doing"
+                  toggle-indeterminate
+                  true-value="done"
                 />
               </q-item-section>
             </q-item>

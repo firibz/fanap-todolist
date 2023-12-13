@@ -76,4 +76,11 @@
     background-color: #06A563;
     //background-image: linear-gradient(to top, #06a563, #2cb35d, #48c155, #63ce49, #80db39, #80db39, #80db39, #80db39, #63ce49, #48c155, #2cb35d, #06a563);
   }
+
+  .done {
+    .q-item__label {
+      text-decoration: line-through;
+      color: #bbb;
+    }
+  }
 }

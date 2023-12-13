@@ -29,47 +29,50 @@ html body {
   -webkit-text-size-adjust: 100%;
 }
 
-.text-lemon-green{
+.text-lemon-green {
   color: var(--q-color-lemon-green) !important;
 }
-.bg-lemon-green{
+
+.bg-lemon-green {
   background-color: var(--q-color-lemon-green) !important;
 }
-.text-lemon-yellow{
+
+.text-lemon-yellow {
   color: var(--q-color-lemon-yellow) !important;
 }
-.bg-lemon-yellow{
+
+.bg-lemon-yellow {
   background-color: var(--q-color-lemon-yellow) !important;
 }
 
-.custom-rounded-borders {
-  border-radius: 16px;
-  -moz-border-radius: 16px;
-  -webkit-border-radius: 16px;
+.custom-rounded-borders, .q-field.custom-rounded-borders .q-field__control {
+  border-radius: 16px !important;
+  -moz-border-radius: 16px !important;
+  -webkit-border-radius: 16px !important;
 }
 
-.custom-rounded-borders--right {
-  border-radius: 0 16px 16px 0;
-  -moz-border-radius: 0 16px 16px 0;
-  -webkit-border-radius: 0 16px 16px 0;
+.custom-rounded-borders--right, .q-field.custom-rounded-borders--right .q-field__control {
+  border-radius: 0 16px 16px 0 !important;
+  -moz-border-radius: 0 16px 16px 0 !important;
+  -webkit-border-radius: 0 16px 16px 0 !important;
 }
 
-.custom-rounded-borders--left {
-  border-radius: 16px 0 0 16px;
-  -moz-border-radius: 16px 0 0 16px;
-  -webkit-border-radius: 16px 0 0 16px;
+.custom-rounded-borders--left, .q-field.custom-rounded-borders--left .q-field__control {
+  border-radius: 16px 0 0 16px !important;
+  -moz-border-radius: 16px 0 0 16px !important;
+  -webkit-border-radius: 16px 0 0 16px !important;
 }
 
-.custom-rounded-borders--top {
-  border-radius: 16px 16px 0 0;
-  -moz-border-radius: 16px 16px 0 0;
-  -webkit-border-radius: 16px 16px 0 0;
+.custom-rounded-borders--top, .q-field.custom-rounded-borders--top .q-field__control {
+  border-radius: 16px 16px 0 0 !important;
+  -moz-border-radius: 16px 16px 0 0 !important;
+  -webkit-border-radius: 16px 16px 0 0 !important;
 }
 
-.custom-rounded-borders--bottom {
-  border-radius: 0 0 16px 16px;
-  -moz-border-radius: 0 0 16px 16px;
-  -webkit-border-radius: 0 0 16px 16px;
+.custom-rounded-borders--bottom, .q-field.custom-rounded-borders--bottom .q-field__control {
+  border-radius: 0 0 16px 16px !important;
+  -moz-border-radius: 0 0 16px 16px !important;
+  -webkit-border-radius: 0 0 16px 16px !important;
 }
 
 .system-btn {
@@ -97,7 +100,11 @@ html body {
   backdrop-filter: saturate(150%) blur(7px);
 }
 
-.empty-list-animation{
+.empty-list-animation {
   height: 30rem;
-  width:22rem;
+  width: 22rem;
+}
+
+.margin-for-searchbar {
+  margin-top: 90px;
 }
