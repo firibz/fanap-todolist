@@ -4,16 +4,17 @@
     class="bg-blur task-dialog custom-rounded-borders--top"
     persistent
     position="bottom"
+    @update:model-value="$emit('update:modelValue', $event)"
   >
     <q-card class="task-dialog__card q-pa-sm custom-rounded-borders--top">
       <q-form @submit="submitForm">
         <q-toolbar>
           <q-avatar>
-            <q-icon :name="form.id ? 'mdi-pencil' : 'mdi-pencil-plus'" size="md"/>
+            <q-icon :name="mode === 'edit' ? 'mdi-pencil' : 'mdi-pencil-plus'" size="md"/>
           </q-avatar>
 
           <q-toolbar-title>
-            <span class="text-weight-bold">{{ form.id ? 'Edit task' : 'Add task' }}</span>
+            <span class="text-weight-bold">{{ mode === 'edit' ? 'Edit task' : 'Add task' }}</span>
           </q-toolbar-title>
 
           <q-btn color="negative" dense flat icon="close" round @click="closeDialog"/>
@@ -26,7 +27,7 @@
               </q-item-section>
               <q-item-section>
                 <q-input
-                  v-model="form.title"
+                  v-model="listState.currentItem.title"
                   :rules="[$va.required]"
                   autofocus
                   class="full-width"
@@ -43,7 +44,7 @@
               </q-item-section>
               <q-item-section>
                 <q-input
-                  v-model="form.description"
+                  v-model="listState.currentItem.description"
                   autogrow
                   class="full-width"
                   color="system-primary"
@@ -59,9 +60,9 @@
               </q-item-section>
               <q-item-section>
                 <q-checkbox
-                  v-model="form.status"
-                  :color="form.status === 'done' ? 'teal-14' : (form.status === 'doing'? 'amber':'grey')"
-                  :label="form.status"
+                  v-model="listState.currentItem.status"
+                  :color="listState.currentItem.status === 'done' ? 'teal-14' : (listState.currentItem.status === 'doing'? 'amber':'grey')"
+                  :label="listState.currentItem.status"
                   class="rounded"
                   false-value="new"
                   indeterminate-value="doing"
@@ -75,8 +76,8 @@
         </q-card-section>
         <q-card-actions>
           <q-btn
-            :color="form.id ? 'amber' : 'teal'"
-            :label="form.id ? 'Edit' : 'Submit'"
+            :color="mode === 'edit' ? 'amber' : 'teal'"
+            :label="mode === 'edit' ? 'Edit' : 'Submit'"
             class="full-width"
             push
             type="submit"
@@ -88,9 +89,7 @@
 </template>
 
 <script>
-import {reactive} from 'vue';
 import {useListStore} from "stores/list-store";
-import {useRouter, useRoute} from 'vue-router'
 
 export default {
   name: "TaskDialog",
@@ -100,32 +99,31 @@ export default {
       type: Boolean,
       default: true,
     },
+    mode: {
+      type: String,
+      default: 'add',
+      validator(value) {
+        // The value must match one of these strings
+        return ["add", "edit"].includes(value);
+      },
+    },
   },
-  emits: ["added", "edited"],
-  setup(__props, {emit}) {
+  emits: ['update:modelValue', "added", "edited"],
+  setup(props, {emit}) {
     const listStore = useListStore();
-    const router = useRouter();
-    const route = useRoute();
-    let form = route.query.id ? reactive(listStore.getTask(route.query.id)) :
-      reactive({
-        id: route.query.id,
-        title: '',
-        description: '',
-        status: 'new'
-      })
 
     function closeDialog() {
-      router.push('/')
+      emit('update:modelValue', false)
     }
 
     function submitForm() {
-      if (!form.id) {
-        listStore.addTask(form).then((item) => {
+      if (props.mode === 'add') {
+        listStore.addTask(listStore.currentItem).then((item) => {
           emit("added", item)
           closeDialog();
         })
       } else {
-        listStore.editTask(form).then((item) => {
+        listStore.editTask(listStore.currentItem).then((item) => {
           emit("edited", item)
           closeDialog();
         })
@@ -134,7 +132,6 @@ export default {
 
     return {
       listState: listStore.$state,
-      form,
       closeDialog,
       submitForm,
     };

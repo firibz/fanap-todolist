@@ -14,7 +14,7 @@
           v-model:status="item.status"
           :description="item.description"
           :left-swipe-function="deleteTask"
-          :right-swipe-function="gotoAddItem"
+          :right-swipe-function="deleteTask"
           :title="item.title">
           <template #actions>
             <q-item-section side>
@@ -25,7 +25,7 @@
                 icon="edit"
                 rounded
                 size="md"
-                @click.stop="gotoEditItem(item.id)"
+                @click.stop="openTaskDialog('edit',item)"
               />
             </q-item-section>
             <q-item-section side>
@@ -36,7 +36,7 @@
                 icon="delete"
                 rounded
                 size="md"
-                @click.stop="deleteTask(item.id)"
+                @click.stop="deleteTask(item)"
               />
             </q-item-section>
           </template>
@@ -55,7 +55,8 @@
       <div class="bg-blur custom-rounded-borders q-pa-md text-center text-white">The list is empty</div>
     </div>
   </div>
-  <router-view/>
+<!--  <router-view/>-->
+  <task-dialog v-model="taskDialog" :mode="dialogMode"/>
   <q-page-sticky :offset="[18, 18]" position="bottom-right">
     <q-btn
       class="q-ma-md"
@@ -63,7 +64,7 @@
       fab
       icon="add"
       size="lg"
-      @click="gotoAddItem"
+      @click="openTaskDialog('add')"
     />
   </q-page-sticky>
   <q-page-sticky expand position="top">
@@ -95,47 +96,52 @@
 </template>
 
 <script>
-import {defineComponent, watch} from 'vue'
+import {defineComponent, watch, ref} from 'vue'
 // the import ia essential in order to use vue-lottie component
 import * as LottiePlayer from "@lottiefiles/lottie-player";
 import {useListStore} from "stores/list-store";
 import {useRouter, useRoute} from 'vue-router'
 import { useQuasar } from 'quasar'
+import _ from 'lodash';
 import TaskItem from "components/TaskItem.vue";
+import TaskDialog from "components/TaskDialog.vue";
 
 export default defineComponent({
   name: 'IndexPage',
-  components: {TaskItem},
+  components: {TaskDialog, TaskItem},
   setup() {
     const listStore = useListStore();
     const router = useRouter();
     const route = useRoute();
     const $q = useQuasar()
-    listStore.searchedStatus = router.currentRoute.value.query.status || 'all'
-
-    function gotoAddItem() {
-      router.push('/add')
+    listStore.searchedStatus = route.query.status|| 'all'
+    const taskDialog = ref(false)
+    const dialogMode = ref('add')
+    function openTaskDialog(mode = 'add', item) {
+      dialogMode.value = mode;
+      if(mode === 'add'){
+        listStore.resetCurrentItem();
+      }
+      else{
+        listStore.currentItem = _.cloneDeep(item);
+      }
+      taskDialog.value = true;
     }
-
-    function gotoEditItem(id) {
-      router.push({
-        path: '/edit',
-        query: {
-          id: id
-        }
-      });
-    }
-
-    function deleteTask(id) {
+    function deleteTask(item) {
       console.log("delete")
       $q.dialog({
           title: 'Warning!',
-          message: 'Are you sure?',
-          cancel: true,
+          message: `Are you sure you want to delete ${item.title} ?`,
+        ok: {
+          push: true,
+          color: 'negative',
+          text:'title'
+        },
+        cancel: true,
           persistent: true
         })
         .onOk(() => {
-          listStore.deleteTask(id)
+          listStore.deleteTask(item.id)
         });
     }
 
@@ -150,8 +156,9 @@ export default defineComponent({
     });
     return {
       listStore,
-      gotoAddItem,
-      gotoEditItem,
+      taskDialog,
+      dialogMode,
+      openTaskDialog,
       deleteTask,
       updateStatusQuery,
     }

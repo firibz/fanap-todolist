@@ -1,11 +1,11 @@
 <template>
   <q-slide-item
     class="q-mt-md custom-rounded-borders bg-blue-grey-10"
-    left-color="red"
-    right-color="teal-14"
+    left-color="teal-14"
+    right-color="negative"
     v-bind="$attrs"
-    @left="opt =>onLeftSwipe(opt, id)"
-    @right="opt =>onRightSwipe(opt, id)"
+    @left="opt =>onLeftSwipe(opt, {id, title})"
+    @right="opt =>onRightSwipe(opt, {id, title})"
   >
     <template v-slot:left>
       <div class="row items-center">
@@ -75,19 +75,19 @@ export default {
     },
     leftSwipeText: {
       type: String,
-      default: "Delete",
+      default: "Open task",
     },
     rightSwipeText: {
       type: String,
-      default: "Change status",
+      default: "Delete",
     },
     leftSwipeIcon: {
       type: String,
-      default: "delete",
+      default: "menu_open",
     },
     rightSwipeIcon: {
       type: String,
-      default: "published_with_changes",
+      default: "delete",
     },
   },
   emits: ['update:status'],

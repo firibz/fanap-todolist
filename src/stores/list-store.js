@@ -3,12 +3,23 @@ import {notification} from "src/helpers/notification";
 import {v4 as uuidv4} from 'uuid';
 import _ from 'lodash';
 import {watch} from 'vue'
-
+const newItem= {
+  id: 0,
+  title: '',
+  description: '',
+  status: 'new', //new, doing, done
+}
 export const useListStore = defineStore('list', {
   state: () => ({
     items: JSON.parse(localStorage.getItem("items")) || [],
     searchedText: '',
     searchedStatus: 'all', //initiates in the created hook of the page
+    currentItem: {
+      id: newItem.id,
+      title: newItem.title,
+      description: newItem.description,
+      status: newItem.status, //new, doing, done
+    },
   }),
   getters: {
     filteredItems(state) {
@@ -30,6 +41,12 @@ export const useListStore = defineStore('list', {
     },
   },
   actions: {
+    resetCurrentItem() {
+      this.currentItem.id = newItem.id
+      this.currentItem.title = newItem.title
+      this.currentItem.description = newItem.description
+      this.currentItem.status = newItem.status
+    },
     async addTask(item) {
       if (!item?.title) {
         notification.showErrorMessage('Please enter the title.');
@@ -37,6 +54,7 @@ export const useListStore = defineStore('list', {
       } else {
         item.id = uuidv4();
         this.items.unshift(_.cloneDeep(item));
+        this.resetCurrentItem();
         return (item)
       }
     },
