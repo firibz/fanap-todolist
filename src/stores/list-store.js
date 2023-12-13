@@ -41,6 +41,8 @@ export const useListStore = defineStore('list', {
       }
     },
     deleteTask(id) {
+      const index = this.items.findIndex((task) => task.id === id);
+      this.items.splice(index, 1);
     },
     async editTask(newItem) {
       if (!newItem?.title) {

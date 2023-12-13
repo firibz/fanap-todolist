@@ -36,7 +36,7 @@
                 icon="delete"
                 rounded
                 size="md"
-                @click.stop="gotoAddItem"
+                @click.stop="deleteTask(item.id)"
               />
             </q-item-section>
           </template>
@@ -95,11 +95,12 @@
 </template>
 
 <script>
-import {defineComponent} from 'vue'
+import {defineComponent, watch} from 'vue'
 // the import ia essential in order to use vue-lottie component
 import * as LottiePlayer from "@lottiefiles/lottie-player";
 import {useListStore} from "stores/list-store";
-import {useRouter} from 'vue-router'
+import {useRouter, useRoute} from 'vue-router'
+import { useQuasar } from 'quasar'
 import TaskItem from "components/TaskItem.vue";
 
 export default defineComponent({
@@ -108,6 +109,8 @@ export default defineComponent({
   setup() {
     const listStore = useListStore();
     const router = useRouter();
+    const route = useRoute();
+    const $q = useQuasar()
     listStore.searchedStatus = router.currentRoute.value.query.status || 'all'
 
     function gotoAddItem() {
@@ -125,6 +128,15 @@ export default defineComponent({
 
     function deleteTask(id) {
       console.log("delete")
+      $q.dialog({
+          title: 'Warning!',
+          message: 'Are you sure?',
+          cancel: true,
+          persistent: true
+        })
+        .onOk(() => {
+          listStore.deleteTask(id)
+        });
     }
 
     const updateStatusQuery = (status) => {
@@ -133,7 +145,9 @@ export default defineComponent({
       }
       router.replace({query})
     }
-
+    watch(() => route.query, () => {
+      listStore.searchedStatus = route.query.status || 'all'
+    });
     return {
       listStore,
       gotoAddItem,
