@@ -1,5 +1,6 @@
 <template>
-  <div v-if="listState.items && listState.items.length>0" class="row full-width justify-center items-center">
+  <div v-if="listStore.filteredItems && listStore.filteredItems.length>0"
+       class="row full-width justify-center items-center">
     <q-list class="col-10 col-sm-7 col-md-6 col-lg-5 col-xl-4 q-mb-md q-mt-xl margin-for-searchbar">
       <transition-group
         appear
@@ -7,7 +8,7 @@
         leave-active-class="animated fadeOutDown"
       >
         <task-item
-          v-for="(item, index) in listState.items"
+          v-for="(item, index) in listStore.filteredItems"
           :id="item.id"
           :key="'transitionsTask'+index"
           v-model:status="item.status"
@@ -68,7 +69,7 @@
   <q-page-sticky expand position="top">
     <div class="row q-py-md system-header custom-rounded-borders--bottom justify-center items-center full-width">
       <q-input
-        v-model="listState.searchedTitle"
+        v-model="listStore.searchedText"
         bg-color="white"
         class="col-10 col-sm-7 col-md-6 col-lg-5 col-xl-4 custom-rounded-borders"
         input-class="text-teal"
@@ -79,6 +80,16 @@
           <q-btn color="teal" dense flat icon="search" round/>
         </template>
       </q-input>
+      <div class="row full-width items-center justify-center q-mt-xs">
+        <q-radio v-model="listStore.searchedStatus" class="q-mx-sm"
+                 color="primary" label="All" val="all" @click="updateStatusQuery(undefined)"/>
+        <q-radio v-model="listStore.searchedStatus" class="q-mx-sm"
+                 color="white" label="new" val="new" @click="updateStatusQuery('new')"/>
+        <q-radio v-model="listStore.searchedStatus" class="q-mx-sm"
+                 color="amber" label="doing" val="doing" @click="updateStatusQuery('doing')"/>
+        <q-radio v-model="listStore.searchedStatus" class="q-mx-sm"
+                 color="teal-14" label="done" val="done" @click="updateStatusQuery('done')"/>
+      </div>
     </div>
   </q-page-sticky>
 </template>
@@ -110,11 +121,19 @@ export default defineComponent({
       console.log("delete")
     }
 
+    const updateStatusQuery = (status) => {
+      const query = {
+        status: status,
+      }
+      router.replace({query})
+    }
+
     return {
-      listState: listStore.$state,
+      listStore,
       gotoAddItem,
       gotoEditItem,
       deleteTask,
+      updateStatusQuery,
     }
   }
 })

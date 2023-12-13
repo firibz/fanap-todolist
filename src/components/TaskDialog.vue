@@ -61,6 +61,7 @@
                 <q-checkbox
                   v-model="form.status"
                   :color="form.status === 'done' ? 'teal-14' : (form.status === 'doing'? 'amber':'grey')"
+                  keep-color
                   :label="form.status"
                   class="rounded"
                   false-value="new"
@@ -108,7 +109,7 @@ export default {
     let form = reactive({
       id: route.query.id,
       title: '',
-      body: '',
+      description: '',
       status: 'new'
     });
 

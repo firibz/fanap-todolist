@@ -26,6 +26,7 @@
       <q-item-section avatar>
         <q-checkbox
           :color="status === 'done' ? 'teal-14' : (status === 'doing'? 'amber':'grey')"
+          keep-color
           :model-value="status"
           class="rounded"
           false-value="new"
